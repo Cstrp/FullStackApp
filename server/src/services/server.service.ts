@@ -21,6 +21,7 @@ export const socket = new Server(server, {
 app.use(passport.initialize());
 _passportJwt(passport);
 
+app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors({ origin: '*' }));

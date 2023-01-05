@@ -2,8 +2,6 @@ import User from '../models/user';
 import user from '../models/user';
 import { socket } from './server.service';
 
-User.length;
-
 export const createUser = async (params: any, emit = true) => {
   const user = new User(params);
   await user.save();
