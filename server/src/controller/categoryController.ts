@@ -1,10 +1,11 @@
 import { Request, Response } from 'express';
 import Category from '../models/category';
 import Positions from '../models/positions';
+import { findCategory } from '../services/category.service';
 
 export const getAllCategory = async (req: Request, res: Response) => {
   try {
-    const categories = await Category.find({ user: req.user });
+    const categories = await findCategory();
     res.status(200).json(categories);
   } catch (error) {
     console.log(error);

@@ -1,0 +1,22 @@
+<div
+  class="fixed z-90 bottom-10 right-8 bg-blue-600 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl hover:bg-blue-700 hover:drop-shadow-2xl hover:animate-spin duration-300"
+>
+  <button [cdkMenuTriggerFor]="menu" (click)="active = !active">
+    <mat-icon *ngIf="!active">menu</mat-icon>
+    <mat-icon *ngIf="active">close</mat-icon>
+  </button>
+
+  <ng-template #menu>
+    <div class="inline-flex flex-col bg-red-100 rounded-lg">
+      <div *ngFor="let link of links" class="p-5 items-center">
+        <button mat-button routerLinkActive="active">
+          <a [routerLink]="link.url">
+            <mat-icon>{{ link.icon }}</mat-icon>
+          </a>
+        </button>
+      </div>
+
+      <hr />
+    </div>
+  </ng-template>
+</div>

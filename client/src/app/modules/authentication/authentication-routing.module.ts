@@ -24,20 +24,3 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class AuthenticationRoutingModule {}
-
-//
-// children: [
-//   {
-//     path: '',
-//     redirectTo: '/sign-in',
-//     pathMatch: 'full',
-//   },
-//   {
-//     path: 'sign-in',
-//     component: SignInPageComponent,
-//   },
-//   {
-//     path: 'sign-up',
-//     component: SignUpPageComponent,
-//   },
-// ],

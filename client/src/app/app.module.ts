@@ -1,33 +1,35 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { SignInPageComponent } from './modules/authentication/components/signIn/signIn-page/signIn-page.component';
-import { AuthenticationLayoutComponent } from './shared/layouts/authentication-layout/authentication-layout.component';
-import { SiteLayoutComponent } from './shared/layouts/site-layout/site-layout.component';
-import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { MaterialModule } from './shared/modules/material.module';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 import { AuthenticationModule } from './modules/authentication/authentication.module';
+import { SharedModule } from './shared/shared.module';
+import { AnalyticsModule } from './modules/analytics/analytics.module';
+import { HistoryModule } from './modules/history/history.module';
+import { OrderModule } from './modules/order/order.module';
+import { CategoryModule } from './modules/category/category.module';
+import { OverviewModule } from './modules/overview/overview.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SignInPageComponent,
-    AuthenticationLayoutComponent,
-    SiteLayoutComponent,
-    NotFoundComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
+    SharedModule,
     AuthenticationModule,
+    AnalyticsModule,
+    HistoryModule,
+    OrderModule,
+    CategoryModule,
+    OverviewModule,
   ],
   providers: [
     {

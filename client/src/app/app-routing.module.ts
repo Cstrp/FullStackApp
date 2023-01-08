@@ -16,7 +16,28 @@ const routes: Routes = [
     path: '',
     component: SiteLayoutComponent,
     canActivate: [AuthGuard],
-    children: [],
+    children: [
+      {
+        path: 'overview',
+        loadChildren: () => import('./modules/overview/overview.module').then((i) => i.OverviewModule),
+      },
+      {
+        path: 'analytics',
+        loadChildren: () => import('./modules/analytics/analytics.module').then((i) => i.AnalyticsModule),
+      },
+      {
+        path: 'history',
+        loadChildren: () => import('./modules/history/history.module').then((i) => i.HistoryModule),
+      },
+      {
+        path: 'order',
+        loadChildren: () => import('./modules/order/order.module').then((i) => i.OrderModule),
+      },
+      {
+        path: 'category',
+        loadChildren: () => import('./modules/category/category.module').then((i) => i.CategoryModule),
+      },
+    ],
   },
   {
     path: '**',
