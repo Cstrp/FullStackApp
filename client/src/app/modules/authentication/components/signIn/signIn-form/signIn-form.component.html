@@ -1,0 +1,12 @@
+<form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-10 py-7" action="#">
+  <app-sign-in-ie [authForm]="authForm" [email]="email"></app-sign-in-ie>
+  <app-sign-in-ip [authForm]="authForm" [password]="password"></app-sign-in-ip>
+  <button
+    type="submit"
+    (click)="onSubmit()"
+    [disabled]="authForm.invalid || authForm.disabled"
+    class="w-1/4 bg-violet-400 text-black text-white font-bold py-2 px-4 rounded opacity-70 disabled:bg-violet-900 disabled:cursor-not-allowed"
+  >
+    Submit
+  </button>
+</form>

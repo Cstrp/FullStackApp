@@ -1,0 +1,21 @@
+<mat-form-field appearance="fill" class="w-full">
+  <mat-label>Enter your password</mat-label>
+  <input matInput [type]="hide ? 'password' : 'text'" [formControlName]="password" />
+  <mat-error class="text-sm" *ngIf="authForm.controls['password'].invalid && authForm.controls['password'].touched">
+    <span *ngIf="authForm.controls['password'].errors?.['required']">Password is required</span>
+    <span *ngIf="authForm.controls['password'].errors?.['pattern']"
+      >Invalid password, you need to enter from 6 to 16 characters, with one special character, uppercase and lowercase
+      letters and a number</span
+    >
+  </mat-error>
+
+  <button
+    mat-icon-button
+    matSuffix
+    (click)="hide = !hide"
+    [attr.aria-label]="'Hide password'"
+    [attr.aria-pressed]="hide"
+  >
+    <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+  </button>
+</mat-form-field>

@@ -20,7 +20,7 @@ export const signIn = async (req: Request, res: Response) => {
     return console.log(error);
   }
 
-  return res.status(404).send(createError(404, `Authorization error, user is not found`));
+  return res.status(404).send(createError(404, `Authorization error, passwords do not match`));
 };
 
 export const signUp = async (req: Request, res: Response) => {
