@@ -11,9 +11,10 @@ const storage = multer.diskStorage({
     callback(null, `${date}-${file.originalname}`);
   },
 });
-
 const fileFilter = (req: e.Request, file: Express.Multer.File, callback: multer.FileFilterCallback) => {
-  if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg') {
+  const fileTypes = /\.(png|jpe?g|gif|svg|webp|ico|avif)$/i;
+
+  if (fileTypes) {
     callback(null, true);
   } else {
     callback(null, false);

@@ -1,0 +1,13 @@
+<div class="flex flex-row justify-between items-center">
+  <div class="text-4xl font-thin">
+    <span class="text-4xl font-thin">
+      <a routerLink="/categories">Categories</a>
+    </span>
+    <mat-icon>keyboard_arrow_right</mat-icon>
+    {{ edit ? 'Add category' : 'Edit category' }}
+  </div>
+  <button mat-flat-button color="warn" (click)="openDialog()" *ngIf="!edit">
+    <mat-icon>delete</mat-icon>
+    <span>Delete</span>
+  </button>
+</div>

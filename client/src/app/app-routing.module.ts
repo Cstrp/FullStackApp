@@ -19,23 +19,24 @@ const routes: Routes = [
     children: [
       {
         path: 'overview',
-        loadChildren: () => import('./modules/overview/overview.module').then((i) => i.OverviewModule),
+        loadChildren: () => import('./modules/overview/overview.module').then((over) => over.OverviewModule),
       },
       {
         path: 'analytics',
-        loadChildren: () => import('./modules/analytics/analytics.module').then((i) => i.AnalyticsModule),
+        loadChildren: () =>
+          import('./modules/analytics/analytics.module').then((analytics) => analytics.AnalyticsModule),
       },
       {
         path: 'history',
-        loadChildren: () => import('./modules/history/history.module').then((i) => i.HistoryModule),
+        loadChildren: () => import('./modules/history/history.module').then((history) => history.HistoryModule),
       },
       {
         path: 'order',
-        loadChildren: () => import('./modules/order/order.module').then((i) => i.OrderModule),
+        loadChildren: () => import('./modules/order/order.module').then((order) => order.OrderModule),
       },
       {
-        path: 'category',
-        loadChildren: () => import('./modules/category/category.module').then((i) => i.CategoryModule),
+        path: 'categories',
+        loadChildren: () => import('./modules/category/category.module').then((category) => category.CategoryModule),
       },
     ],
   },

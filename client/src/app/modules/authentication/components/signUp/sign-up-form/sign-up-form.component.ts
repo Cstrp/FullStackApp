@@ -18,7 +18,7 @@ export class SignUpFormComponent implements OnInit, OnDestroy {
 
   public authForm: FormGroup = new FormGroup({
     email: new FormControl(this.email),
-    password: new FormControl('2'),
+    password: new FormControl(''),
   });
 
   constructor(

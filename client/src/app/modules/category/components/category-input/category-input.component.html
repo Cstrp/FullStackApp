@@ -1,0 +1,10 @@
+<mat-form-field class="w-full">
+  <mat-label>Title</mat-label>
+  <input matInput type="text" [formControlName]="title" placeholder="Enter your title..." />
+  <mat-error *ngIf="form.controls['title'].invalid && form.controls['title'].touched">
+    <span *ngIf="form.controls['title'].errors?.['required']">Category title cannot be empty</span>
+  </mat-error>
+  <button matSuffix type="button" mat-icon-button aria-label="Clear" (click)="reset()">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>

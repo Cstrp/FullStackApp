@@ -1,6 +1,6 @@
 export interface Category {
-  title: string;
-  imageSrc?: string;
-  user?: string;
   _id?: string;
+  title: string;
+  imagesSrc?: string;
+  user?: string;
 }

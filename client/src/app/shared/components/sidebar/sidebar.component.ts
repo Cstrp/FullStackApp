@@ -27,7 +27,7 @@ export class SidebarComponent implements AfterViewInit {
     { url: '/analytics', name: 'Analytics', icon: 'analytics' },
     { url: '/history', name: 'History', icon: 'history' },
     { url: '/order', name: 'Add order', icon: 'add' },
-    { url: '/category', name: 'Assortment', icon: 'category' },
+    { url: '/categories', name: 'Assortment', icon: 'category' },
   ];
 
   ngAfterViewInit(): void {

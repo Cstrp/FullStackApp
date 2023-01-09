@@ -9,6 +9,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FloatingButtonComponent } from './components/floating-button/floating-button.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SidebarComponent,
     FloatingButtonComponent,
     SpinnerComponent,
+    ConfirmDialogComponent,
   ],
   imports: [CommonModule, RouterOutlet, RouterLinkActive, MaterialModule, RouterLink, NgxSpinnerModule],
   exports: [FloatingButtonComponent, SpinnerComponent],
