@@ -17,7 +17,7 @@ export class CategoriesFormComponent implements OnInit {
 
   public imagePreview: string | ArrayBuffer | null | undefined;
 
-  public category!: Category;
+  private category!: Category;
 
   public form: FormGroup = new FormGroup({
     title: new FormControl(''),
@@ -113,5 +113,7 @@ export class CategoriesFormComponent implements OnInit {
         this.snackBarService.showBar(error.error.message, 'close');
       },
     );
+
+    this.form.reset();
   }
 }

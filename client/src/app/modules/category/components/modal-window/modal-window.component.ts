@@ -58,7 +58,7 @@ export class ModalWindowComponent implements OnInit, AfterViewInit {
     const newPosition: Position = {
       title,
       cost,
-      position: this.data._id ? this.data._id : '',
+      category: this.data._id ? this.data._id : '',
       edit: this.data.edit,
     };
 
@@ -72,9 +72,9 @@ export class ModalWindowComponent implements OnInit, AfterViewInit {
   submit() {
     if (this.isEdit) {
       console.log(this.data);
-      this.positionService
-        .updatePosition({ ...this.data, ...this.form.value })
-        .subscribe((position) => this.dialogRef.close({ position }));
+      // this.positionService
+      //   .updatePosition({ ...this.data, ...this.form.value })
+      //   .subscribe((position) => this.dialogRef.close({ position }));
     } else {
       this.positionService.createPosition(this.form.value).subscribe((position) => this.dialogRef.close({ position }));
     }

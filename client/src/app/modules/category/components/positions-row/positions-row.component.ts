@@ -3,7 +3,7 @@ import { PositionService } from '../../services/position.service';
 import { SnackBarService } from '../../../../shared/services/snack-bar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalWindowComponent } from '../modal-window/modal-window.component';
-import { filter } from 'rxjs';
+import { filter, Subscription } from 'rxjs';
 import { Position } from '../../models/position';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
@@ -21,7 +21,7 @@ export class PositionsRowComponent implements OnInit, OnDestroy {
 
   public loading: boolean = false;
 
-  // private sub$!: Subscription;
+  private sub$!: Subscription;
 
   constructor(
     private positionsService: PositionService,
@@ -44,45 +44,63 @@ export class PositionsRowComponent implements OnInit, OnDestroy {
     this.dialog.ngOnDestroy();
   }
 
-  openDialog(edit: boolean, position?: Position) {
+  public openDialog(edit: boolean) {
     const dialogRef = this.dialog.open(ModalWindowComponent, {
-      data: { _id: this._id, position: position?._id, title: position?.title, cost: position?.cost, edit },
+      data: { _id: this._id, edit: false },
       autoFocus: 'dialog',
       role: 'dialog',
       width: '980px',
     });
 
-    dialogRef
+    this.sub$ = dialogRef
       .afterClosed()
       .pipe(filter((result) => result))
-      .subscribe(
-        (result) => {
-          const { position, accept } = result;
+      .subscribe((result) => {
+        const { position, accept } = result;
 
-          if (accept) {
-            if (edit) {
-              this.positionsService.updatePosition(position).subscribe(
-                (updatedPosition) => {
-                  const idx = this.positions.findIndex((i) => i._id === updatedPosition._id);
+        this.edit = edit;
+        if (accept) {
+          this.positionsService.createPosition(position).subscribe(
+            (pos) => {
+              this.positions.push(pos);
+            },
+            (error) => {
+              this.snackBarService.showBar(error.error.message, 'Close');
+            },
+          );
+          this.snackBarService.showBar('Position has been created', 'Close');
+        }
+      });
+  }
 
-                  this.positions[idx] = updatedPosition;
-                  this.snackBarService.showBar('Position updated!', 'Close');
-                },
-                (error) => this.snackBarService.showBar(error.error.message, 'close'),
-              );
-            } else {
-              this.positionsService.createPosition(position).subscribe(
-                (newPosition) => {
-                  this.positions.push(newPosition);
-                  this.snackBarService.showBar('Position created!', 'Close');
-                },
-                (error) => this.snackBarService.showBar(error.error.message, 'close'),
-              );
-            }
-          }
-        },
-        (error) => this.snackBarService.showBar(error.error.message, 'close'),
-      );
+  public selectPosition(position: Position, edit: boolean) {
+    const dialogRef = this.dialog.open(ModalWindowComponent, {
+      data: { _id: position._id, title: position.title, cost: position.cost, edit: true },
+      autoFocus: 'dialog',
+      role: 'dialog',
+      width: '980px',
+    });
+
+    this.sub$ = dialogRef
+      .afterClosed()
+      .pipe(filter((result) => result))
+      .subscribe((result) => {
+        // const { position, accept } = result;
+
+        this.edit = edit;
+
+        // if (accept) {
+        //   this.positionsService.updatePosition(position).subscribe(
+        //     (pos) => {
+        //       const idx = this.positions.findIndex((i) => i._id === pos._id);
+        //
+        //       this.positions[idx] = pos;
+        //     },
+        //     (error) => this.snackBarService.showBar(error.error.message, 'Close'),
+        //   );
+        //   this.snackBarService.showBar('Position has been updated', 'Close');
+        // }
+      });
   }
 
   deletePosition(position: Position) {
@@ -107,62 +125,3 @@ export class PositionsRowComponent implements OnInit, OnDestroy {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
   }
 }
-
-// public openDialog(edit: boolean) {
-//   const dialogRef = this.dialog.open(ModalWindowComponent, {
-//     data: { _id: this._id, edit: false },
-//     autoFocus: 'dialog',
-//     role: 'dialog',
-//     width: '980px',
-//   });
-//
-//   this.sub$ = dialogRef
-//     .afterClosed()
-//     .pipe(filter((result) => result))
-//     .subscribe((result) => {
-//       const { position, accept } = result;
-//
-//       this.edit = edit;
-//       if (accept) {
-//         this.positionsService.createPosition(position).subscribe(
-//           (pos) => {
-//             this.positions.push(pos);
-//           },
-//           (error) => {
-//             this.snackBarService.showBar(error.error.message, 'Close');
-//           },
-//         );
-//         this.snackBarService.showBar('Position has been created', 'Close');
-//       }
-//     });
-// }
-//
-// public selectPosition(position: Position, edit: boolean) {
-//   const dialogRef = this.dialog.open(ModalWindowComponent, {
-//     data: { _id: position._id, title: position.title, cost: position.cost, edit: true },
-//     autoFocus: 'dialog',
-//     role: 'dialog',
-//     width: '980px',
-//   });
-//
-//   this.sub$ = dialogRef
-//     .afterClosed()
-//     .pipe(filter((result) => result))
-//     .subscribe((result) => {
-//       // const { position, accept } = result;
-//
-//       this.edit = edit;
-//
-//       // if (accept) {
-//       //   this.positionsService.updatePosition(position).subscribe(
-//       //     (pos) => {
-//       //       const idx = this.positions.findIndex((i) => i._id === pos._id);
-//       //
-//       //       this.positions[idx] = pos;
-//       //     },
-//       //     (error) => this.snackBarService.showBar(error.error.message, 'Close'),
-//       //   );
-//       //   this.snackBarService.showBar('Position has been updated', 'Close');
-//       // }
-//     });
-// }
