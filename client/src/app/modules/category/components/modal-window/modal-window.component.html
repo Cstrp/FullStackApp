@@ -1,0 +1,32 @@
+<form action="" [formGroup]="form" (ngSubmit)="submit()">
+  <h2 matDialogTitle>{{ !edit ? 'Add position' : 'Edit position' }}</h2>
+
+  <mat-dialog-content>
+    <div class="flex flex-col gap-5">
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" />
+        <mat-error *ngIf="form.controls['title'].invalid && form.controls['title'].touched">
+          <span *ngIf="form.controls['title'].errors?.['required']">Field "title" cannot be empty</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Cost</mat-label>
+        <input matInput formControlName="cost" type="number" min="1" />
+        <mat-error *ngIf="form.controls['cost'].invalid && form.controls['cost'].touched">
+          <span *ngIf="form.controls['cost'].errors?.['required']">Field "cost" cannot be empty</span>
+          <span *ngIf="form.controls['cost'].errors?.['min']"
+            >Enter a valid cost, the minimum value of which cannot be less than one</span
+          >
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button type="submit" mat-raised-button color="primary" [disabled]="!form.valid" (click)="accept()">
+      {{ isEdit ? 'Save' : 'Create' }}
+    </button>
+    <button type="button" mat-raised-button color="warn" (click)="decline()">Cancel</button>
+  </mat-dialog-actions>
+</form>
