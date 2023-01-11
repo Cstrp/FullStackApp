@@ -10,8 +10,8 @@ import { Message } from '../../../shared/models/message';
 export class PositionService {
   constructor(private http: HttpClient) {}
 
-  getAllPositions(_id: string): Observable<Position[]> {
-    return this.http.get<Position[]>(`/api/position/${_id}`);
+  getAllPositions(id: string): Observable<Position[]> {
+    return this.http.get<Position[]>(`/api/position/${id}`);
   }
 
   createPosition(position: Position): Observable<Position> {
@@ -22,7 +22,7 @@ export class PositionService {
     return this.http.patch<Position>(`api/position/${position._id}`, position);
   }
 
-  deletePosition(position: Position): Observable<Message> {
+  removePosition(position: Position): Observable<Message> {
     return this.http.delete<Message>(`api/position/${position._id}`);
   }
 }

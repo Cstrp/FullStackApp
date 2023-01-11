@@ -34,22 +34,21 @@ export class ModalWindowComponent implements OnInit {
   }
 
   accept() {
-    if (!this.form.valid) {
-      return;
-    }
-
     const { title, cost } = this.form.value;
-    let updatedPosition: Position;
 
-    if (this.data?.edit) {
-      updatedPosition = { _id: this.data._id, title, cost } as Position;
-      this.updatePosition(updatedPosition).subscribe((res) => {
-        this.dialogRef.close({ position: res, accept: true, edit: this.isEdit });
+    let position: Position;
+
+    if (this.data.edit) {
+      position = { _id: this.data._id, title, cost } as Position;
+
+      this.updatePosition(position).subscribe((p) => {
+        this.dialogRef.close({ p, accept: true, edit: this.isEdit });
       });
     } else {
-      updatedPosition = { title, cost } as Position;
-      this.createPosition(updatedPosition).subscribe((res) => {
-        this.dialogRef.close({ position: res, accept: true, edit: this.isEdit });
+      position = { title, cost, category: this.data.category };
+
+      this.createPosition(position).subscribe((p) => {
+        this.dialogRef.close({ p, accept: true, edit: this.isEdit });
       });
     }
   }
@@ -59,36 +58,25 @@ export class ModalWindowComponent implements OnInit {
   }
 
   submit() {
-    // if (!this.form.valid) {
-    //   return;
-    // }
+    if (!this.form.valid) {
+      return;
+    }
+
+    console.log('Data on submit', this.data);
+
+    // const { title, cost } = this.form.value;
+    // let updatedPosition: Position;
     //
-    // if (this.isEdit) {
-    //   this.positionService.updatePosition(this.form.value).subscribe(
-    //     (result) => {
-    //       console.log('Это результат в обновлении!', result);
-    //       this.dialogRef.close({ position: result, accept: true });
-    //     },
-    //     (error) => {
-    //       console.log('Error', error);
-    //     },
-    //   );
+    // if (this.data?.edit) {
+    //   updatedPosition = { _id: this.data._id, title, cost } as Position;
+    //   this.updatePosition(updatedPosition).subscribe((res) => {
+    //     this.dialogRef.close({ position: res, accept: true, edit: this.isEdit });
+    //   });
     // } else {
-    //   let position: Position = {
-    //     title: this.form.value.title,
-    //     cost: this.form.value.cost,
-    //     category: this.data.category,
-    //   };
-    //
-    //   this.positionService.createPosition(position).subscribe(
-    //     (result) => {
-    //       console.log('Это результат в создании!', result);
-    //       this.dialogRef.close({ position: result, accept: false });
-    //     },
-    //     (error) => {
-    //       console.log('Error', error);
-    //     },
-    //   );
+    //   updatedPosition = { title, cost } as Position;
+    //   this.createPosition(updatedPosition).subscribe((res) => {
+    //     this.dialogRef.close({ position: res, accept: true, edit: this.isEdit });
+    //   });
     // }
   }
 

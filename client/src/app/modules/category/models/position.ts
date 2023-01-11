@@ -1,8 +1,8 @@
 export interface Position {
-  _id?: string;
   title: string;
   cost: number;
   category: string;
+  _id?: string;
   user?: string;
   edit?: boolean;
 }

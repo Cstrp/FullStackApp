@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PositionService } from '../../services/position.service';
 import { SnackBarService } from '../../../../shared/services/snack-bar.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -6,22 +6,20 @@ import { ModalWindowComponent } from '../modal-window/modal-window.component';
 import { Position } from '../../models/position';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
-import { filter, Subscription } from 'rxjs';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-positions-row',
   templateUrl: './positions-row.component.html',
 })
-export class PositionsRowComponent implements OnInit, OnDestroy {
-  @Input() public _id!: string | undefined;
+export class PositionsRowComponent implements OnInit {
+  @Input() public categoryId!: string | undefined;
 
   public edit: boolean = true;
 
   public positions: Position[] = [];
 
   public loading: boolean = false;
-
-  private sub$!: Subscription;
 
   constructor(
     private positionsService: PositionService,
@@ -31,17 +29,12 @@ export class PositionsRowComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loading = true;
-
-    if (this._id) {
-      this.positionsService.getAllPositions(this._id).subscribe((position) => {
+    if (this.categoryId) {
+      this.positionsService.getAllPositions(this.categoryId).subscribe((position) => {
         this.positions = position;
         this.loading = false;
       });
     }
-  }
-
-  ngOnDestroy(): void {
-    this.dialog.ngOnDestroy();
   }
 
   openDialog(edit: boolean, position?: Position) {
@@ -50,7 +43,7 @@ export class PositionsRowComponent implements OnInit, OnDestroy {
         _id: position?._id,
         title: position?.title,
         cost: position?.cost,
-        category: this._id,
+        category: this.categoryId!,
         edit,
       },
       autoFocus: 'dialog',
@@ -60,20 +53,23 @@ export class PositionsRowComponent implements OnInit, OnDestroy {
 
     dialogRef
       .afterClosed()
-      .pipe(filter((positions) => positions))
-      .subscribe((result) => {
-        if (result.accept) {
-          if (result.edit) {
-            const idx = this.positions.findIndex((i) => i._id === result.position._id);
+      .pipe(filter((i) => i))
+      .subscribe(
+        (result) => {
+          if (result && result.accept) {
+            if (result.edit) {
+              const idx = this.positions.findIndex((i) => i._id === result.p._id);
 
-            this.positions[idx] = result.position;
-            this.snackBarService.showBar('Position updated!', 'Close');
-          } else {
-            this.positions.push(result.position);
-            this.snackBarService.showBar('Position created!', 'Close');
+              this.positions[idx] = result.p;
+              this.snackBarService.showBar('Position has been updated!', 'Close');
+            } else {
+              this.positions.push(result.p);
+              this.snackBarService.showBar('Position has been created!', 'Close');
+            }
           }
-        }
-      });
+        },
+        (error) => this.snackBarService.showBar(error.error.message, 'Close'),
+      );
   }
 
   deletePosition(position: Position) {
@@ -86,7 +82,7 @@ export class PositionsRowComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) {
-          this.positionsService.deletePosition(position).subscribe(() => {
+          this.positionsService.removePosition(position).subscribe(() => {
             this.positions = this.positions.filter((p) => p._id !== position._id);
             this.snackBarService.showBar('Position deleted!', 'close');
           });

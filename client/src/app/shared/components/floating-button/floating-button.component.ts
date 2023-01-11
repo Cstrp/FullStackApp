@@ -10,7 +10,7 @@ export class FloatingButtonComponent {
 
   links = [
     { url: '/order', icon: 'add' },
-    { url: '/category/new', icon: 'category' },
+    { url: '/categories/new', icon: 'category' },
   ];
 
   constructor() {}
