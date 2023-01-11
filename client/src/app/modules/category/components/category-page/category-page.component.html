@@ -16,7 +16,7 @@
         <div class="mt-10" *ngIf="categories$ | async as categories; else loader">
           <mat-selection-list
             cdkDropList
-            multiple="false"
+            [multiple]="false"
             (cdkDropListDropped)="drop($event)"
             [cdkDropListData]="categories"
             *ngIf="categories.length !== 0; else empty"
@@ -25,6 +25,12 @@
               <a [routerLink]="['/categories', category._id]" class="text-lg font-medium"
                 >{{ category.title | titlecase }}
               </a>
+              <img
+                *cdkDragPreview
+                [src]="category.imagesSrc"
+                [alt]="category.title"
+                class="max-w-md h-auto rounded-sm"
+              />
             </mat-list-option>
           </mat-selection-list>
         </div>

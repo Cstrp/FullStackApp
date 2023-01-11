@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { CategoryService } from '../../services/category.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
@@ -10,7 +10,7 @@ import { of, Subscription, switchMap } from 'rxjs';
   selector: 'app-category-title',
   templateUrl: './category-title.component.html',
 })
-export class CategoryTitleComponent {
+export class CategoryTitleComponent implements OnDestroy {
   @Input() edit!: boolean;
 
   private sub$!: Subscription;
@@ -23,8 +23,15 @@ export class CategoryTitleComponent {
     private router: Router,
   ) {}
 
+  ngOnDestroy(): void {
+    this.confirmDialog.ngOnDestroy();
+  }
+
   public openDialog() {
     const dialogRef = this.confirmDialog.open(ConfirmDialogComponent, {
+      data: {
+        message: 'Are you sure you want to delete this category?',
+      },
       autoFocus: 'dialog',
       role: 'dialog',
     });
