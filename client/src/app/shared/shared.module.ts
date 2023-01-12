@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AuthenticationLayoutComponent } from './layouts/authentication-layout/authentication-layout.component';
 import { SiteLayoutComponent } from './layouts/site-layout/site-layout.component';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MaterialModule } from './modules/material.module';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FloatingButtonComponent } from './components/floating-button/floating-button.component';

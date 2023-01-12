@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Position } from '../models/position';
+import { Positions } from '../../../shared/models/positions';
 import { Observable } from 'rxjs';
 import { Message } from '../../../shared/models/message';
 
@@ -10,19 +10,19 @@ import { Message } from '../../../shared/models/message';
 export class PositionService {
   constructor(private http: HttpClient) {}
 
-  getAllPositions(id: string): Observable<Position[]> {
-    return this.http.get<Position[]>(`/api/position/${id}`);
+  getAllPositions(id: string): Observable<Positions[]> {
+    return this.http.get<Positions[]>(`/api/position/${id}`);
   }
 
-  createPosition(position: Position): Observable<Position> {
-    return this.http.post<Position>('api/position', position);
+  createPosition(position: Positions): Observable<Positions> {
+    return this.http.post<Positions>('api/position', position);
   }
 
-  updatePosition(position: Position): Observable<Position> {
-    return this.http.patch<Position>(`api/position/${position._id}`, position);
+  updatePosition(position: Positions): Observable<Positions> {
+    return this.http.patch<Positions>(`api/position/${position._id}`, position);
   }
 
-  removePosition(position: Position): Observable<Message> {
+  removePosition(position: Positions): Observable<Message> {
     return this.http.delete<Message>(`api/position/${position._id}`);
   }
 }

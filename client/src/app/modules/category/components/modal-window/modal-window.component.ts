@@ -2,8 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PositionService } from '../../services/position.service';
-import { Position } from '../../models/position';
+import { Positions } from '../../../../shared/models/positions';
 import { Observable } from 'rxjs';
+import { SnackBarService } from '../../../../shared/services/snack-bar.service';
 
 @Component({
   selector: 'app-modal-window',
@@ -18,8 +19,9 @@ export class ModalWindowComponent implements OnInit {
   });
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: Position,
+    @Inject(MAT_DIALOG_DATA) public data: Positions,
     private dialogRef: MatDialogRef<ModalWindowComponent>,
+    private snackBarService: SnackBarService,
     private fb: FormBuilder,
     private positionService: PositionService,
   ) {}
@@ -36,20 +38,26 @@ export class ModalWindowComponent implements OnInit {
   accept() {
     const { title, cost } = this.form.value;
 
-    let position: Position;
+    let position: Positions;
 
     if (this.data.edit) {
-      position = { _id: this.data._id, title, cost } as Position;
+      position = { _id: this.data._id, title, cost } as Positions;
 
-      this.updatePosition(position).subscribe((p) => {
-        this.dialogRef.close({ p, accept: true, edit: this.isEdit });
-      });
+      this.updatePosition(position).subscribe(
+        (p) => {
+          this.dialogRef.close({ p, accept: true, edit: this.isEdit });
+        },
+        (error) => this.snackBarService.showBar(error.error.message, 'Close'),
+      );
     } else {
       position = { title, cost, category: this.data.category };
 
-      this.createPosition(position).subscribe((p) => {
-        this.dialogRef.close({ p, accept: true, edit: this.isEdit });
-      });
+      this.createPosition(position).subscribe(
+        (p) => {
+          this.dialogRef.close({ p, accept: true, edit: this.isEdit });
+        },
+        (error) => this.snackBarService.showBar(error.error.message, 'Close'),
+      );
     }
   }
 
@@ -57,34 +65,11 @@ export class ModalWindowComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-  submit() {
-    if (!this.form.valid) {
-      return;
-    }
-
-    console.log('Data on submit', this.data);
-
-    // const { title, cost } = this.form.value;
-    // let updatedPosition: Position;
-    //
-    // if (this.data?.edit) {
-    //   updatedPosition = { _id: this.data._id, title, cost } as Position;
-    //   this.updatePosition(updatedPosition).subscribe((res) => {
-    //     this.dialogRef.close({ position: res, accept: true, edit: this.isEdit });
-    //   });
-    // } else {
-    //   updatedPosition = { title, cost } as Position;
-    //   this.createPosition(updatedPosition).subscribe((res) => {
-    //     this.dialogRef.close({ position: res, accept: true, edit: this.isEdit });
-    //   });
-    // }
-  }
-
-  private createPosition(position: Position): Observable<Position> {
+  private createPosition(position: Positions): Observable<Positions> {
     return this.positionService.createPosition(position);
   }
 
-  private updatePosition(position: Position): Observable<Position> {
+  private updatePosition(position: Positions): Observable<Positions> {
     return this.positionService.updatePosition(position);
   }
 }

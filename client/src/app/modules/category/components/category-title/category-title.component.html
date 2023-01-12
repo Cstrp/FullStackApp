@@ -4,7 +4,9 @@
       <a routerLink="/categories">Categories</a>
     </span>
     <mat-icon>keyboard_arrow_right</mat-icon>
-    {{ edit ? 'Add category' : 'Edit category' }}
+    <span class="text-4xl font-thin">
+      {{ edit ? 'Add category' : 'Edit category' }}
+    </span>
   </div>
   <button mat-flat-button color="warn" (click)="openDialog()" *ngIf="!edit">
     <mat-icon>delete</mat-icon>

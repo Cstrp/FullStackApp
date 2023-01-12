@@ -1,0 +1,56 @@
+<div class="p-5">
+  <mat-card>
+    <div class="flex flex-col gap-5">
+      <mat-card-title class="p-3">Your order</mat-card-title>
+
+      <table mat-table [dataSource]="order.orderList" *ngIf="order.orderList.length !== 0; else empty" class="p-3">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let order">{{ order.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef>Quantity</th>
+          <td mat-cell *matCellDef="let order">{{ order.quantity }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef>Price</th>
+          <td mat-cell *matCellDef="let order">{{ order.cost }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="empty">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let order">
+            <button mat-icon-button color="primary" (click)="removePosition(order)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <ng-template #empty>
+        <p class="text-center text-2xl">You have not added any orders at this time</p>
+      </ng-template>
+
+      <mat-card-footer class="p-3">
+        <p class="text-lg text-end">
+          Total cost <strong> {{ order.price | currency }} </strong>
+        </p>
+      </mat-card-footer>
+
+      <mat-card-actions align="end">
+        <div class="flex flex-row gap-5 p-3">
+          <button mat-raised-button color="warn" (click)="decline()">Cancel</button>
+          <button mat-raised-button color="primary" [disabled]="order.orderList.length === 0" (click)="accept()">
+            Confirm
+          </button>
+        </div>
+      </mat-card-actions>
+    </div>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </mat-card>
+</div>

@@ -1,0 +1,18 @@
+<div class="flex flex-row justify-between items-center">
+  <div class="text-4xl font-thin">
+    <span class="text-4xl font-thin" *ngIf="isOrder">
+      <a routerLink="/order">Order</a>
+    </span>
+
+    <span class="text-4xl font-thin" *ngIf="!isOrder">
+      <a routerLink="/order">Order</a>
+      <mat-icon>keyboard_arrow_right</mat-icon>
+      <span class="text-4xl font-thin"> Add order </span>
+    </span>
+  </div>
+
+  <button mat-flat-button color="primary" (click)="openDialog()" [disabled]="order.orderList.length === 0">
+    <mat-icon>done</mat-icon>
+    <span>Complete</span>
+  </button>
+</div>

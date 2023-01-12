@@ -1,4 +1,15 @@
 <main class="relative">
-  <p>order-page works!</p>
-  <app-floating-button></app-floating-button>
+  <mat-card>
+    <div class="p-5">
+      <mat-card-title> <app-order-title [isOrder]="isOrder"></app-order-title> </mat-card-title>
+    </div>
+
+    <mat-card-content>
+      <router-outlet></router-outlet>
+    </mat-card-content>
+
+    <mat-card-footer>
+      <app-floating-button></app-floating-button>
+    </mat-card-footer>
+  </mat-card>
 </main>
