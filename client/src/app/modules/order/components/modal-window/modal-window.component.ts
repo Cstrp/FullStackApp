@@ -13,7 +13,7 @@ export class ModalWindowComponent {
 
   constructor(
     public order: OrderService,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: boolean,
     private dialogRef: MatDialogRef<ModalWindowComponent>,
     private snackBarService: SnackBarService,
   ) {}

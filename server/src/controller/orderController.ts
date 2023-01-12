@@ -6,7 +6,6 @@ export const getAllOrder = async (req: Request, res: Response) => {
     user: req.user,
   };
 
-  // Start Date
   if (req.query.start) {
     query.date = {
       $gte: req.query.start,
@@ -17,21 +16,20 @@ export const getAllOrder = async (req: Request, res: Response) => {
     if (!query.date) {
       query.date = {};
     }
+
     query.date['$lte'] = req.query.end;
   }
 
   if (req.query.order) {
-    query.order = Number(req.query.order);
+    query.order = +req.query.order;
   }
 
   try {
-    const { offset, limit } = req.query;
-
-    const orders = await Order.find(query).sort({ date: -1 }).skip(Number(offset)).limit(Number(limit));
+    const orders = await Order.find(query).sort({ date: -1 }).skip(+req.query.offset!).limit(+req.query.limit!);
 
     res.status(200).json(orders);
-  } catch (error) {
-    console.log(`${res} ${error}`);
+  } catch (err) {
+    return console.log(err);
   }
 };
 

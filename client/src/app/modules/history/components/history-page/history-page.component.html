@@ -1,4 +1,23 @@
 <main class="relative">
-  <p>history-page works!</p>
-  <app-floating-button></app-floating-button>
+  <mat-card>
+    <div class="p-5">
+      <mat-card-title>
+        <app-history-title></app-history-title>
+      </mat-card-title>
+
+      <div>
+        <mat-card-subtitle>
+          <app-history-filter></app-history-filter>
+        </mat-card-subtitle>
+      </div>
+    </div>
+
+    <mat-card-content>
+      <app-history-list [orders]="orders" (pageChange)="onPageChange($event)"></app-history-list>
+    </mat-card-content>
+
+    <mat-card-footer>
+      <!--      <app-floating-button></app-floating-button>-->
+    </mat-card-footer>
+  </mat-card>
 </main>

@@ -4,6 +4,6 @@ export interface Order {
   date?: Date;
   order?: number;
   list: OrderList[];
-  _id: string;
+  _id?: string;
   user?: string;
 }
