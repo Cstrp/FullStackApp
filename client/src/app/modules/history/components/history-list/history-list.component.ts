@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Order } from '../../../order/models/order';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalWindowComponent } from '../modal-window/modal-window.component';
 
 @Component({
   selector: 'app-history-list',
@@ -39,7 +41,7 @@ export class HistoryListComponent implements OnInit {
 
   public pageSizeOptions: number[] = [5, 10, 25];
 
-  constructor() {}
+  constructor(private modalWindow: MatDialog) {}
 
   ngOnInit(): void {
     this.totalLength = this.orders.length;
@@ -47,5 +49,16 @@ export class HistoryListComponent implements OnInit {
 
   onPageChange(event: PageEvent) {
     this.pageChange.emit(event);
+  }
+
+  openDialog(order: Order) {
+    const dialogRef = this.modalWindow.open(ModalWindowComponent, {
+      data: order,
+      width: '980px',
+      maxWidth: '1220px',
+      maxHeight: '700px',
+    });
+
+    dialogRef.afterClosed().subscribe();
   }
 }

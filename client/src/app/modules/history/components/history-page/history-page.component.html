@@ -1,4 +1,4 @@
-<main class="relative">
+<main class="relative" *ngIf="!loading; else loader">
   <mat-card>
     <div class="p-5">
       <mat-card-title>
@@ -7,7 +7,7 @@
 
       <div>
         <mat-card-subtitle>
-          <app-history-filter></app-history-filter>
+          <app-history-filter (filterData)="applyFilter($event)"></app-history-filter>
         </mat-card-subtitle>
       </div>
     </div>
@@ -15,9 +15,9 @@
     <mat-card-content>
       <app-history-list [orders]="orders" (pageChange)="onPageChange($event)"></app-history-list>
     </mat-card-content>
-
-    <mat-card-footer>
-      <!--      <app-floating-button></app-floating-button>-->
-    </mat-card-footer>
   </mat-card>
 </main>
+
+<ng-template #loader>
+  <app-spinner></app-spinner>
+</ng-template>

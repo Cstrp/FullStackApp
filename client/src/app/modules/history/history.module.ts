@@ -8,9 +8,10 @@ import { HistoryTitleComponent } from './components/history-title/history-title.
 import { HistoryFilterComponent } from './components/history-filter/history-filter.component';
 import { MaterialModule } from '../../shared/modules/material.module';
 import { GetTotalAmountPipe } from './pipe/get-total-amount.pipe';
+import { ModalWindowComponent } from './components/modal-window/modal-window.component';
 
 @NgModule({
-  declarations: [HistoryPageComponent, HistoryListComponent, HistoryTitleComponent, HistoryFilterComponent, GetTotalAmountPipe],
+  declarations: [HistoryPageComponent, HistoryListComponent, HistoryTitleComponent, HistoryFilterComponent, GetTotalAmountPipe, ModalWindowComponent],
   imports: [CommonModule, HistoryRoutingModule, SharedModule, MaterialModule],
 })
 export class HistoryModule {}

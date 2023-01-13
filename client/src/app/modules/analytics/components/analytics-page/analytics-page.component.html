@@ -1,4 +1,14 @@
 <main class="relative">
-  <p>analytics-page works!</p>
-  <app-floating-button></app-floating-button>
+  <mat-card>
+    <div class="p-5">
+      <mat-card-title>
+        <app-analytics-title></app-analytics-title>
+      </mat-card-title>
+    </div>
+  </mat-card>
+
+  <mat-card-content>
+    <app-gain-chart></app-gain-chart>
+    <app-orders-chart></app-orders-chart>
+  </mat-card-content>
 </main>

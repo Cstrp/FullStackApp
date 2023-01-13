@@ -23,6 +23,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': 5.44.0
   '@typescript-eslint/parser': 5.44.0
   autoprefixer: ^10.4.13
+  chart.js: ^4.1.2
   eslint: ^8.28.0
   eslint-config-airbnb-typescript: ^17.0.0
   eslint-plugin-prettier: ^4.2.1
@@ -32,6 +33,7 @@ specifiers:
   karma-coverage: ~2.2.0
   karma-jasmine: ~5.1.0
   karma-jasmine-html-reporter: ~2.0.0
+  ng2-charts: 4.1.1
   ngx-spinner: 15.0.1
   postcss: ^8.4.20
   prettier: ^2.8.1
@@ -52,6 +54,8 @@ dependencies:
   '@angular/platform-browser': 15.0.4_bwwplqn6fknm3semymfqlvw5bm
   '@angular/platform-browser-dynamic': 15.0.4_hnn6v3m7xpfwy5wugozvutqsyi
   '@angular/router': 15.0.4_6qoe6dvkj2mvffppuvjrhovg7y
+  chart.js: 4.1.2
+  ng2-charts: 4.1.1_7oeq4foiprtp7k4tjgnhs4xmvy
   ngx-spinner: 15.0.1_wcjhsjedbutghxn65tv34lliyq
   rxjs: 7.5.7
   tslib: 2.4.1
@@ -1965,6 +1969,10 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
+  /@kurkle/color/0.3.2:
+    resolution: {integrity: sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==}
+    dev: false
+
   /@leichtgewicht/ip-codec/2.0.4:
     resolution: {integrity: sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==}
     dev: true
@@ -3750,6 +3758,13 @@ packages:
   /chardet/0.7.0:
     resolution: {integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==}
     dev: true
+
+  /chart.js/4.1.2:
+    resolution: {integrity: sha512-9L1w6WLPq6ztiWVVOYtDtpo0CUsBKDWPrUEdwChAyzczaikqeSwNKEv3QpJ7EO4ICcLSi6UDVhgvcnUhRJidRA==}
+    engines: {pnpm: ^7.0.0}
+    dependencies:
+      '@kurkle/color': 0.3.2
+    dev: false
 
   /chokidar/3.5.3:
     resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
@@ -6270,6 +6285,10 @@ packages:
       p-locate: 5.0.0
     dev: true
 
+  /lodash-es/4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+    dev: false
+
   /lodash.debounce/4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
     dev: true
@@ -6652,6 +6671,24 @@ packages:
   /neo-async/2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
+
+  /ng2-charts/4.1.1_7oeq4foiprtp7k4tjgnhs4xmvy:
+    resolution: {integrity: sha512-iHwXDbmX86lfeH8VRcsaW2tJATsuAZo4kvvC/Yk2l35zOHjevja1qBvO6BAibiDazi9r9aS6ZRJOqWPsz1pP2w==}
+    peerDependencies:
+      '@angular/cdk': '>=14.0.0'
+      '@angular/common': '>=14.0.0'
+      '@angular/core': '>=14.0.0'
+      chart.js: ^3.4.0 || ^4.0.0
+      rxjs: ^6.5.3 || ^7.4.0
+    dependencies:
+      '@angular/cdk': 15.0.3_zovsh5vworg6kopfdylx55rhum
+      '@angular/common': 15.0.4_35fj7bqlhadjjbsew5x5pstq4q
+      '@angular/core': 15.0.4_rxjs@7.5.7+zone.js@0.12.0
+      chart.js: 4.1.2
+      lodash-es: 4.17.21
+      rxjs: 7.5.7
+      tslib: 2.4.1
+    dev: false
 
   /ngx-spinner/15.0.1_wcjhsjedbutghxn65tv34lliyq:
     resolution: {integrity: sha512-7DjETmBpuXTwI68ad1xMKpwt4Cyz1eyu8E7AJcFiKa+8JAnbo0k1qfvWur0aemncRNxDxHoyl6jw42MsnE/B+g==}

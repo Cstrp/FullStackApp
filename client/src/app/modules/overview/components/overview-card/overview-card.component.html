@@ -1,0 +1,86 @@
+<div *ngIf="overviews$ | async as overviews; else loader">
+  <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-card appearance="raised" role="group" style="background: rgba(0, 255, 255, 0.3)">
+      <mat-card-header>
+        <mat-card-title class="py-5">
+          <span class="text-3xl">Revenue:</span>
+        </mat-card-title>
+
+        <mat-card-subtitle class="py-5">
+          <span class="text-lg py-5">{{ overviews.gain.yesterday | currency }}</span>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-divider class="py-5"></mat-divider>
+
+      <mat-card-content>
+        <span
+          class="text-5xl"
+          [ngClass]="{
+            'text-green-900': overviews.gain.higher,
+            'text-red-900': !overviews.gain.higher
+          }"
+        >
+          <mat-icon>{{ overviews.gain.higher ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+          {{ overviews.gain.percent }}%
+        </span>
+        <mat-divider class="py-5"></mat-divider>
+
+        <p class="text-base">
+          The revenue of your business yesterday is <strong>{{ overviews.gain.percent }}%</strong>
+          {{ overviews.gain.higher ? 'higher' : 'below' }} average:
+          <strong>
+            {{ overviews.gain.compare | currency }}
+          </strong>
+          in a day
+        </p>
+      </mat-card-content>
+      <mat-card-footer class="p-2 md:p-4">
+        <mat-progress-bar mode="indeterminate" color="primary"></mat-progress-bar>
+      </mat-card-footer>
+    </mat-card>
+
+    <div class="py-5"></div>
+
+    <mat-card appearance="raised" style="background: rgba(153, 50, 204, 0.3)">
+      <mat-card-header>
+        <mat-card-title class="py-5">
+          <span class="text-3xl">Orders:</span>
+        </mat-card-title>
+        <mat-card-subtitle class="py-5">
+          <span class="text-lg"> {{ overviews.orders.yesterday | currency }}</span>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-divider class="py-5"></mat-divider>
+
+      <mat-card-content>
+        <span
+          class="text-5xl"
+          [ngClass]="{
+            'text-green-900': overviews.orders.higher,
+            'text-red-900': !overviews.orders.higher
+          }"
+        >
+          <mat-icon>{{ overviews.orders.higher ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+          {{ overviews.orders.percent }}%
+        </span>
+        <mat-divider class="py-5"></mat-divider>
+
+        <p class="text-base">
+          The revenue of your business yesterday is <strong>{{ overviews.orders.percent }}%</strong>
+          {{ overviews.orders.higher ? 'higher' : 'below' }} average:
+          <strong>
+            {{ overviews.orders.compare | currency }}
+          </strong>
+          in a day
+        </p>
+      </mat-card-content>
+      <mat-card-footer class="p-2 md:p-4">
+        <mat-progress-bar mode="query" color="primary"></mat-progress-bar>
+      </mat-card-footer>
+    </mat-card>
+  </mat-grid-list>
+</div>
+
+<ng-template #loader>
+  <app-spinner></app-spinner>
+</ng-template>

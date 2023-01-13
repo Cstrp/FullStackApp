@@ -14,6 +14,7 @@ import { HistoryModule } from './modules/history/history.module';
 import { OrderModule } from './modules/order/order.module';
 import { CategoryModule } from './modules/category/category.module';
 import { OverviewModule } from './modules/overview/overview.module';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +31,7 @@ import { OverviewModule } from './modules/overview/overview.module';
     OrderModule,
     CategoryModule,
     OverviewModule,
+    NgChartsModule,
   ],
   providers: [
     {

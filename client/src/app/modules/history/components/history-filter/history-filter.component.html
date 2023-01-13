@@ -1,24 +1,33 @@
 <div *ngIf="filterService.showFilter">
-  <form class="w-full flex gap-5 py-5">
+  <form class="w-full flex gap-5 py-5" [formGroup]="filterForm">
     <mat-form-field color="primary">
       <mat-label>Order number</mat-label>
-      <input matInput type="number" min="1" />
+      <input matInput type="number" min="1" formControlName="order" />
+      <mat-error class="text-sm" *ngIf="filterForm.controls['order'].invalid && filterForm.controls['order'].touched">
+        <span *ngIf="filterForm.controls['order'].errors?.['required']">This field cannot be empty</span>
+        <span *ngIf="filterForm.controls['order'].errors?.['min']">Hello world</span>
+      </mat-error>
     </mat-form-field>
-    <mat-form-field appearance="fill" color="primary">
-      <mat-label>Enter a date range</mat-label>
-      <mat-date-range-input [rangePicker]="picker">
-        <input matStartDate placeholder="Start date" />
-        <input matEndDate placeholder="End date" />
-      </mat-date-range-input>
-      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker color="warn">
-        <mat-date-range-picker-actions>
-          <button mat-button matDateRangePickerCancel>Cancel</button>
-          <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
-        </mat-date-range-picker-actions>
-      </mat-date-range-picker>
+
+    <mat-form-field color="primary" appearance="fill">
+      <mat-label>Start date</mat-label>
+      <input matInput [matDatepicker]="firstPicker" formControlName="start" />
+      <mat-error class="text-sm" *ngIf="filterForm.controls['start'].invalid && filterForm.controls['start'].touched">
+        <span *ngIf="filterForm.controls['start'].errors?.['required']">This field cannot be empty</span>
+      </mat-error>
+      <mat-datepicker-toggle matIconSuffix [for]="firstPicker"></mat-datepicker-toggle>
+      <mat-datepicker #firstPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field color="primary" appearance="fill">
+      <mat-label>End date</mat-label>
+      <input matInput [matDatepicker]="secondPicker" formControlName="end" />
+      <mat-error class="text-sm" *ngIf="filterForm.controls['end'].invalid && filterForm.controls['end'].touched">
+        <span *ngIf="filterForm.controls['end'].errors?.['required']">This field cannot be empty</span>
+      </mat-error>
+      <mat-datepicker-toggle matIconSuffix [for]="secondPicker"></mat-datepicker-toggle>
+      <mat-datepicker #secondPicker color="primary"></mat-datepicker>
     </mat-form-field>
   </form>
-  <button mat-raised-button color="primary">Apply filter</button>
+  <button mat-raised-button color="primary" (click)="submit()" [disabled]="filterForm.invalid">Apply filter</button>
 </div>
