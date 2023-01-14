@@ -10,6 +10,6 @@ export class AnalyticsService {
   constructor(private http: HttpClient) {}
 
   getAnalytics(): Observable<Analytics> {
-    return this.http.get<Analytics>('api/analytics/analytics');
+    return this.http.get<Analytics>('http://localhost:4201/analytics/analytics');
   }
 }

@@ -13,7 +13,7 @@ export class AuthenticationService {
   constructor(private http: HttpClient, private lsService: LocalStorageService) {}
 
   signIn(user: User): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>('/api/auth/login', user).pipe(
+    return this.http.post<{ token: string }>('http://localhost:4201/auth/signin', user).pipe(
       tap(({ token }) => {
         if (token) {
           this.lsService.saveData('token', token);
@@ -26,7 +26,7 @@ export class AuthenticationService {
   signUp(user: User): Observable<User> {
     console.log(user);
 
-    return this.http.post<User>('/api/auth/register', user);
+    return this.http.post<User>('http://localhost:4201/auth/signup', user);
   }
 
   public setToken(token: string) {

@@ -10,6 +10,6 @@ export class OverviewService {
   constructor(private http: HttpClient) {}
 
   getOverview(): Observable<Overview> {
-    return this.http.get<Overview>('/api/analytics/overview');
+    return this.http.get<Overview>('http://localhost:4201/analytics/overview');
   }
 }

@@ -37,9 +37,9 @@ export class HistoryListComponent implements OnInit {
 
   public totalLength!: number;
 
-  public pageSize = 5;
+  public pageSize = 10;
 
-  public pageSizeOptions: number[] = [5, 10, 25];
+  public pageSizeOptions: number[] = [5, 10, 15, 20, 25];
 
   constructor(private modalWindow: MatDialog) {}
 
