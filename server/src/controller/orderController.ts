@@ -29,7 +29,8 @@ export const getAllOrder = async (req: Request, res: Response) => {
 
     res.status(200).json(orders);
   } catch (err) {
-    return console.log(err);
+    console.log(err);
+    res.status(500).json({ error: 'Error fetching orders' });
   }
 };
 
@@ -43,14 +44,16 @@ export const createOrder = async (req: Request, res: Response) => {
 
     const maxOrder = lastOrder ? lastOrder.order : 0;
 
-    const order = await new Order({
+    const newOrder = await new Order({
       list,
       user: req.user,
       order: maxOrder + 1,
+      date: new Date(),
     }).save();
 
-    res.status(201).json(order);
-  } catch (error) {
-    console.log(`${res} ${error}`);
+    res.status(201).json(newOrder);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error creating order' });
   }
 };

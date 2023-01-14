@@ -1,40 +1,36 @@
 import { Request, Response } from 'express';
+import { OrderType } from '../interfaces/order';
 import Order from '../models/order';
 import moment from 'moment';
 
 export const overview = async (req: Request, res: Response) => {
   try {
     const orders = await Order.find({ user: req.user }).sort({ date: 1 });
-    const ordersMap = getOrderMap(orders);
-    const yesterdayOrdersList = ordersMap[moment().add(-1, 'd').format('DD.MM.YYYY')];
-    const yesterdayOrdersNum: number = yesterdayOrdersList.length;
-    const totalOrdersNumber: number = orders.length;
-    const daysNumber: number = Object.keys(ordersMap).length;
-    const ordersPerDay = (totalOrdersNumber / daysNumber).toFixed(2);
-    const ordersPercent = ((yesterdayOrdersNum / +ordersPerDay - 1) * 100).toFixed(2);
+    const yesterday = moment().add(-1, 'd').format('DD.MM.YYYY');
+    const yesterdayOrdersList = getOrderMap(orders)[yesterday];
+    const totalOrdersNumber = orders.length;
+    const daysNumber = Object.keys(getOrderMap(orders)).length;
+    const ordersPerDay = totalOrdersNumber / daysNumber;
+    const yesterdayOrdersNum = yesterdayOrdersList.length;
     const totalRevenue = calculate(orders);
     const totalRevenuePerDay = totalRevenue / daysNumber;
     const yesterdayGain = calculate(yesterdayOrdersList);
-    const gainPercent = ((yesterdayGain / totalRevenuePerDay - 1) * 100).toFixed(2);
-    const compareGain = (yesterdayGain - totalRevenuePerDay).toFixed(2);
-    const compareNumber = (yesterdayOrdersNum - +ordersPerDay).toFixed(2);
-
-    res.status(200).json({
-      gain: {
-        percent: Math.abs(+gainPercent),
-        compare: Math.abs(+compareGain),
-        yesterday: +yesterdayGain,
-        higher: +gainPercent > 0,
-      },
-      orders: {
-        percent: Math.abs(+ordersPercent),
-        compare: Math.abs(+compareNumber),
-        yesterday: +yesterdayOrdersNum,
-        higher: +ordersPercent > 0,
-      },
-    });
+    const gainData = {
+      percent: Math.abs((yesterdayGain / totalRevenuePerDay - 1) * 100).toFixed(2),
+      compare: (yesterdayGain - totalRevenuePerDay).toFixed(2),
+      yesterday: +yesterdayGain,
+      higher: yesterdayGain > totalRevenuePerDay,
+    };
+    const ordersData = {
+      percent: Math.abs((yesterdayOrdersNum / ordersPerDay - 1) * 100).toFixed(2),
+      compare: (yesterdayOrdersNum - ordersPerDay).toFixed(2),
+      yesterday: +yesterdayOrdersNum,
+      higher: yesterdayOrdersNum > ordersPerDay,
+    };
+    res.status(200).json({ gain: gainData, orders: ordersData });
   } catch (err) {
-    return console.log(err);
+    console.log(err);
+    res.status(500).json({ message: 'Error retrieving data' });
   }
 };
 
@@ -59,8 +55,8 @@ export const analytics = async (req: Request, res: Response) => {
 };
 
 function getOrderMap(orders: any) {
-  const daysOrders: any = {};
-  orders.forEach((order: any) => {
+  const daysOrders: { [key: string]: OrderType[] } = {};
+  orders.forEach((order: OrderType) => {
     const day = moment(order.date).format('DD.MM.YYYY');
 
     if (day === moment().format('DD.MM.YYYY')) return;

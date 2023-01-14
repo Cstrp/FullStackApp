@@ -6,10 +6,10 @@ import { createError } from '../services';
 
 export const getAllCategory = async (req: Request, res: Response) => {
   try {
-    const categories = await categoryService.findCategory();
+    const categories = await categoryService.findCategory(req);
     res.status(200).json(categories);
   } catch (error) {
-    console.log(error);
+    return res.status(404).send(createError(404, 'Category was not founded!'));
   }
 };
 

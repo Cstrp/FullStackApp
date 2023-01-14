@@ -13,3 +13,8 @@ const port = process.env.PORT || 4201;
     console.log(error);
   }
 })();
+
+process.on('SIGINT', async () => {
+  await mongoose.disconnect();
+  process.exit();
+});
