@@ -3,14 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
-  "engines": {
-    "node": " >= 18"
-  },
   "scripts": {
     "serve": "nodemon dist/index",
     "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn src/index.ts",
-    "build": "npm install && rimraf ./dist && tsc"
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",

@@ -11,18 +11,18 @@ export class PositionService {
   constructor(private http: HttpClient) {}
 
   getAllPositions(id: string): Observable<Positions[]> {
-    return this.http.get<Positions[]>(`http://localhost:4201/position/${id}`);
+    return this.http.get<Positions[]>(`api/position/${id}`);
   }
 
   createPosition(position: Positions): Observable<Positions> {
-    return this.http.post<Positions>('http://localhost:4201/position', position);
+    return this.http.post<Positions>('api/position', position);
   }
 
   updatePosition(position: Positions): Observable<Positions> {
-    return this.http.patch<Positions>(`http://localhost:4201/position/${position._id}`, position);
+    return this.http.patch<Positions>(`api/position/${position._id}`, position);
   }
 
   removePosition(position: Positions): Observable<Message> {
-    return this.http.delete<Message>(`http://localhost:4201/position/${position._id}`);
+    return this.http.delete<Message>(`api/position/${position._id}`);
   }
 }

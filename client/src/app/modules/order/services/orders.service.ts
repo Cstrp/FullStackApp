@@ -10,7 +10,7 @@ export class OrdersService {
   constructor(private http: HttpClient) {}
 
   getOrders(options: any = {}): Observable<Order[]> {
-    return this.http.get<Order[]>('http://localhost:4201/order', {
+    return this.http.get<Order[]>('api/order', {
       params: new HttpParams({
         fromObject: options,
       }),
@@ -18,6 +18,6 @@ export class OrdersService {
   }
 
   createOrder(order: Order): Observable<Order> {
-    return this.http.post<Order>('http://localhost:4201/order', order);
+    return this.http.post<Order>('api/order', order);
   }
 }

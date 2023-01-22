@@ -11,11 +11,11 @@ export class CategoryService {
   constructor(private http: HttpClient) {}
 
   getAllCategory(): Observable<Category[]> {
-    return this.http.get<Category[]>('http://localhost:4201/category');
+    return this.http.get<Category[]>('api/category');
   }
 
   getCategoryById(id: string): Observable<Category> {
-    return this.http.get<Category>(`http://localhost:4201/category/${id}`);
+    return this.http.get<Category>(`api/category/${id}`);
   }
 
   createCategory(title: string, img?: File): Observable<Category> {
@@ -24,7 +24,7 @@ export class CategoryService {
     if (img) formData.append('image', img, img.name);
     formData.append('title', title);
 
-    return this.http.post<Category>('http://localhost:4201/category', formData);
+    return this.http.post<Category>('api/category', formData);
   }
 
   updateCategory(id: string, title: string, img: File): Observable<Category> {
@@ -33,10 +33,10 @@ export class CategoryService {
     if (img) formData.append('image', img);
     formData.append('title', title);
 
-    return this.http.patch<Category>(`http://localhost:4201/category/${id}`, formData);
+    return this.http.patch<Category>(`api/category/${id}`, formData);
   }
 
   removeCategory(id: string): Observable<Message> {
-    return this.http.delete<Message>(`http://localhost:4201/category/${id}`);
+    return this.http.delete<Message>(`api/category/${id}`);
   }
 }
