@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AnalyticsService } from '../../services/analytics.service';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
+import { AnalyticsService } from '../../services/analytics.service';
 
 @Component({
   selector: 'app-gain-chart',
@@ -21,22 +21,24 @@ export class GainChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.analyticsService.getAnalytics().subscribe((items) => {
-      this.average = items.average;
+      if (items) {
+        this.average = items.average;
 
-      const labels = items.chart.map((item) => item.label);
-      const data = items.chart.map((item) => item.gain);
+        const labels = items.chart.map((item) => item.label);
+        const data = items.chart.map((item) => item.gain);
 
-      this.chartData = {
-        labels,
-        datasets: [
-          {
-            data,
-            label: 'Revenue',
-            fill: false,
-            backgroundColor: 'rgba(191,30,244,0.3)',
-          },
-        ],
-      };
+        this.chartData = {
+          labels,
+          datasets: [
+            {
+              data: data ? data : [],
+              label: 'Revenue',
+              fill: false,
+              backgroundColor: 'rgba(191,30,244,0.3)',
+            },
+          ],
+        };
+      }
     });
   }
 }

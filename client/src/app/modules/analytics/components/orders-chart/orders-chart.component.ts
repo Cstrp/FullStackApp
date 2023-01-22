@@ -17,7 +17,7 @@ export class OrdersChartComponent implements OnInit {
 
   public lineChartLegend: boolean = true;
 
-  constructor(private analyticsService: AnalyticsService) {}
+  constructor(private analyticsService: AnalyticsService) { }
 
   ngOnInit(): void {
     this.analyticsService.getAnalytics().subscribe((items) => {
