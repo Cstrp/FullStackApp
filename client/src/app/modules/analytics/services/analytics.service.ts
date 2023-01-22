@@ -7,9 +7,9 @@ import { Analytics } from '../models/analytics';
   providedIn: 'root',
 })
 export class AnalyticsService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAnalytics(): Observable<Analytics> {
-    return this.http.get<Analytics>('/api/analytics/analytics');
+    return this.http.get<Analytics>('https://fsfapp.onrender.com/api/analytics/analytics');
   }
 }

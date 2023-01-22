@@ -1,6 +1,6 @@
 {
-  "/api/*": {
-    "target": "http://localhost:4201",
+  "https://fsfapp.onrender.com/api/*": {
+    "target": "https://fsfapp.onrender.com",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true

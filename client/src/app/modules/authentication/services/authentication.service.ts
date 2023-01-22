@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { User } from '../models/user';
 import { LocalStorageService } from '../../../shared/services/local-storage.service';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -10,10 +10,10 @@ import { LocalStorageService } from '../../../shared/services/local-storage.serv
 export class AuthenticationService {
   private token: string | null = null;
 
-  constructor(private http: HttpClient, private lsService: LocalStorageService) {}
+  constructor(private http: HttpClient, private lsService: LocalStorageService) { }
 
   signIn(user: User): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>('api/auth/signin', user).pipe(
+    return this.http.post<{ token: string }>('https://fsfapp.onrender.com/api/auth/signin', user).pipe(
       tap(({ token }) => {
         if (token) {
           this.lsService.saveData('token', token);
@@ -26,7 +26,7 @@ export class AuthenticationService {
   signUp(user: User): Observable<User> {
     console.log(user);
 
-    return this.http.post<User>('api/auth/signup', user);
+    return this.http.post<User>('https://fsfapp.onrender.com/api/auth/signup', user);
   }
 
   public setToken(token: string) {

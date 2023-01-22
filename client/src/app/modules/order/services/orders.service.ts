@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Order } from '../models/order';
 
@@ -7,10 +7,10 @@ import { Order } from '../models/order';
   providedIn: 'root',
 })
 export class OrdersService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getOrders(options: any = {}): Observable<Order[]> {
-    return this.http.get<Order[]>('api/order', {
+    return this.http.get<Order[]>('https://fsfapp.onrender.com/api/order', {
       params: new HttpParams({
         fromObject: options,
       }),
@@ -18,6 +18,6 @@ export class OrdersService {
   }
 
   createOrder(order: Order): Observable<Order> {
-    return this.http.post<Order>('api/order', order);
+    return this.http.post<Order>('https://fsfapp.onrender.com/api/order', order);
   }
 }

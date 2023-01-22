@@ -7,9 +7,9 @@ import { Overview } from '../models/overview';
   providedIn: 'root',
 })
 export class OverviewService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getOverview(): Observable<Overview> {
-    return this.http.get<Overview>('api/analytics/overview');
+    return this.http.get<Overview>('https://fsfapp.onrender.com/api/analytics/overview');
   }
 }
