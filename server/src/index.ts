@@ -1,8 +1,7 @@
-import * as serverService from './services/server.service';
 import mongoose from 'mongoose';
-import { dburl } from './config/keys';
+import { dburl, port } from './config/keys';
+import * as serverService from './services/server.service';
 
-const port = process.env.PORT || 4201;
 
 (async () => {
   try {
